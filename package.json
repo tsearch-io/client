@@ -36,6 +36,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
+    "fmt": "prettier --write '**/*.{json,md,ts,tsx,js,html}'",
     "ts:watch": "tsc -w -p .",
     "start": "react-scripts start",
     "build": "react-scripts build",

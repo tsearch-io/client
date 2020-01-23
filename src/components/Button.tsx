@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const none = { outline: 'none' }
+const none = {outline: 'none'}
 
 const Button = styled.button({
   outline: 'none',
@@ -14,7 +14,7 @@ const Button = styled.button({
   '&:hover': none,
   '&:active': none,
   '&:focus': none,
-  '&:disabled': { cursor: 'not-allowed' },
+  '&:disabled': {cursor: 'not-allowed'},
 })
 
 export default Button

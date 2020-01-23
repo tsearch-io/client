@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Link } from '../components'
+import {Link} from '../components'
 
 const Help: React.SFC = () => (
   <div>

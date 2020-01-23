@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const none = { outline: 'none' }
+const none = {outline: 'none'}
 
 const Input = styled.input({
   outline: 'none',

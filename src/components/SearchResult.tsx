@@ -7,7 +7,7 @@ import {
 } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 import Collapse from './Collapse'
-import { FormattedFunctionRecord } from '../types'
+import {FormattedFunctionRecord} from '../types'
 
 interface Props {
   result: FormattedFunctionRecord
@@ -47,24 +47,28 @@ const Signature: React.SFC<FormattedFunctionRecord> = props => (
   </SyntaxHighlighter>
 )
 
-const DTLink: React.SFC<{ module: string }> = ({ module }) => (
+const DTLink: React.SFC<{module: string}> = ({module}) => (
   <div>
     Package:{' '}
-    <a href={`https://www.npmjs.com/package/@types/${module}`} target="_blank" rel="noopener noreferrer">
+    <a
+      href={`https://www.npmjs.com/package/@types/${module}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       @types/{module}
     </a>
   </div>
 )
 
-const SearchResult: React.SFC<Props> = ({ result }) => (
+const SearchResult: React.SFC<Props> = ({result}) => (
   <Container>
     <Signature {...result} />
     {result.text && (
       <Collapse
-        trigger={({ toggle, isOpen }) => (
+        trigger={({toggle, isOpen}) => (
           <Location>
             <DTLink module={result.module} />
-              <Toggle onClick={toggle}>{isOpen ? 'Source V' : 'Source >'}</Toggle>
+            <Toggle onClick={toggle}>{isOpen ? 'Source V' : 'Source >'}</Toggle>
           </Location>
         )}
       >

@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import {RouteComponentProps} from 'react-router-dom'
 import styled from 'styled-components'
 
-import { Logo, RouterLink } from '../components'
+import {Logo, RouterLink} from '../components'
 import Form from '../modules/Form'
 
 const Container = styled.div({
@@ -29,11 +29,11 @@ const qToPath = (q: string) => ({
   search: `?q=${encodeURIComponent(q)}`,
 })
 
-const Home: React.SFC<RouteComponentProps> = ({ history }) => (
+const Home: React.SFC<RouteComponentProps> = ({history}) => (
   <Container>
     <Logo />
     <Form
-      onSubmit={q => history.push({ pathname: '/query', search: `?q=${q}` })}
+      onSubmit={q => history.push({pathname: '/query', search: `?q=${q}`})}
       isLoading={false}
     />
     <div>

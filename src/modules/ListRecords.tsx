@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { RemoteData, cata } from 'remote-data-ts'
+import {RemoteData, cata} from 'remote-data-ts'
 import styled from 'styled-components'
 
 import SearchResult from '../components/SearchResult'
-import { FormattedFunctionRecord } from '../types'
-import { SearchError, fold } from '../services/SearchError'
+import {FormattedFunctionRecord} from '../types'
+import {SearchError, fold} from '../services/SearchError'
 
 const Flex = styled.div({
   display: 'flex',
@@ -16,7 +16,7 @@ const Pre = styled.pre({
   marginLeft: 10,
 })
 
-const key = ({ location }: FormattedFunctionRecord) =>
+const key = ({location}: FormattedFunctionRecord) =>
   `${location.path}-${location.lines.from}-${location.lines.to}`
 
 const renderData = cata<
@@ -58,7 +58,7 @@ interface Props {
   records: RecordsResult
 }
 
-const Results: React.SFC<Props> = ({ records }) => (
+const Results: React.SFC<Props> = ({records}) => (
   <div>{renderData(records)}</div>
 )
 

@@ -1,12 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { RouterLink } from './Link'
+import {RouterLink} from './Link'
 
 const Link = styled(RouterLink)({
   color: '#333',
   fontFamily: 'Helvetica',
-  '&:visited': { color: '#333' },
+  '&:visited': {color: '#333'},
 })
 
 const Logo = () => (

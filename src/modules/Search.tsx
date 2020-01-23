@@ -1,16 +1,16 @@
 import * as React from 'react'
-import { RemoteData, is, map } from 'remote-data-ts'
+import {RemoteData, is, map} from 'remote-data-ts'
 import * as prettier from 'prettier/standalone'
 import * as tsParser from 'prettier/parser-typescript'
 
-import { FunctionRecord, stringifySignature } from '../types'
+import {FunctionRecord, stringifySignature} from '../types'
 
-import { search } from '../services/tSearch'
+import {search} from '../services/tSearch'
 
 import Form from './Form'
 import ListRecords from './ListRecords'
-import { FormattedFunctionRecord } from '../types'
-import { SearchError, unknownError } from '../services/SearchError'
+import {FormattedFunctionRecord} from '../types'
+import {SearchError, unknownError} from '../services/SearchError'
 
 type SearchResult = RemoteData<FormattedFunctionRecord[], SearchError>
 
@@ -24,16 +24,15 @@ interface State {
 }
 
 const formatSignature = (code: string, name?: string) =>
-  prettier
-    .format(`type ${name || 't'} = ${code}`, {
-      parser: 'typescript',
-      semi: false,
-      singleQuote: true,
-      trailingComma: 'all',
-      bracketSpacing: true,
-      arrowParens: 'always',
-      plugins: [tsParser],
-    })
+  prettier.format(`type ${name || 't'} = ${code}`, {
+    parser: 'typescript',
+    semi: false,
+    singleQuote: true,
+    trailingComma: 'all',
+    bracketSpacing: true,
+    arrowParens: 'always',
+    plugins: [tsParser],
+  })
 
 const formatRecords = map<
   FunctionRecord[],
@@ -63,7 +62,7 @@ export default class Search extends React.Component<Props, State> {
   }
 
   search = (query: string) => {
-    this.setState({ searchResult: RemoteData.loading() })
+    this.setState({searchResult: RemoteData.loading()})
 
     search(query)
       .map(formatRecords)
@@ -72,10 +71,10 @@ export default class Search extends React.Component<Props, State> {
           // tslint:disable-next-line no-console
           console.error(error)
           // All errors should've been handled by now
-          this.setState({ searchResult: RemoteData.failure(unknownError()) })
+          this.setState({searchResult: RemoteData.failure(unknownError())})
         },
         data => {
-          this.setState({ searchResult: data })
+          this.setState({searchResult: data})
         },
       )
   }

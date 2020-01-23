@@ -4,7 +4,7 @@ interface Props {
   w: number
 }
 
-const Col = styled.div<Props>(({ w }) => ({
+const Col = styled.div<Props>(({w}) => ({
   width: `${w}%`,
   '@media screen and (max-width: 1024px)': {
     width: '100%',

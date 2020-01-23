@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Link as RRouterLink } from 'react-router-dom'
+import {Link as RRouterLink} from 'react-router-dom'
 
 const none = {
   textDecoration: 'none',

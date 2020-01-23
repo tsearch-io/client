@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import {RouteComponentProps} from 'react-router-dom'
 import styled from 'styled-components'
 
-import { Col, Link, Logo } from '../components'
+import {Col, Link, Logo} from '../components'
 import Search from '../modules/Search'
 
 const Container = styled.div({
@@ -28,7 +28,7 @@ const Sidebar = styled.div({
 const getQuery = (search: string) =>
   search ? decodeURIComponent(search.replace('?q=', '')) : ''
 
-const SearchPage: React.SFC<RouteComponentProps> = ({ location, history }) => (
+const SearchPage: React.SFC<RouteComponentProps> = ({location, history}) => (
   <Container>
     <Col w={15}>
       <Sidebar>
@@ -52,7 +52,7 @@ const SearchPage: React.SFC<RouteComponentProps> = ({ location, history }) => (
         <Search
           query={getQuery(location.search)}
           onSearch={(q: string) =>
-            history.push({ pathname: '/query', search: `?q=${q}` })
+            history.push({pathname: '/query', search: `?q=${q}`})
           }
         />
       </SearchContainer>

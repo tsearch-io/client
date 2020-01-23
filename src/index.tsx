@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { render } from 'react-dom'
-import { Route, Router, Switch } from 'react-router-dom'
+import {render} from 'react-dom'
+import {Route, Router, Switch} from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
-import { createGlobalStyle } from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
 
 import Home from './pages/Home'
 import Search from './pages/Search'
