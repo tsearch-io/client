@@ -1,12 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import * as React from 'react'
+import { render } from 'react-dom'
+import { Route, Router, Switch } from 'react-router-dom'
+import createHistory from 'history/createBrowserHistory'
+import { createGlobalStyle } from 'styled-components'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import Home from './pages/Home'
+import Search from './pages/Search'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const history = createHistory({
+  basename: process.env.REACT_APP_BASENAME || '',
+})
+
+const GlobalStyles = createGlobalStyle({
+  body: {
+    margin: 0,
+    padding: 0,
+    fontFamily: 'sans-serif',
+    maxWidth: '100vw',
+  },
+})
+
+const Root: React.SFC = () => (
+  <>
+    <Router history={history}>
+      <Switch>
+        <Route path="/" exact={true} component={Home} />
+        <Route path="/query" component={Search} />
+      </Switch>
+    </Router>
+    <GlobalStyles />
+  </>
+)
+
+render(<Root />, document.getElementById('root'))
