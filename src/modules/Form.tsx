@@ -1,17 +1,11 @@
-import * as React from 'react'
+import React, {FC, useState} from 'react'
 import styled from 'styled-components'
 
 import {Input, Button, Collapse} from '../components'
 
 import Help from './Help'
 
-const MonoInput = styled(Input)({
-  fontFamily: 'monospace',
-})
-
-interface State {
-  query: string
-}
+const MonoInput = styled(Input)({fontFamily: 'monospace'})
 
 interface Props {
   initialQuery?: string
@@ -19,48 +13,43 @@ interface Props {
   onSubmit: (query: string) => void
 }
 
-export default class Search extends React.Component<Props, State> {
-  state = {
-    query: this.props.initialQuery || '',
-  }
+const Search: FC<Props> = ({initialQuery, isLoading, onSubmit}) => {
+  const [query, setQuery] = useState(initialQuery || '')
 
-  onChange = (e: {target: HTMLInputElement}) => {
-    this.setState({query: e.target.value})
-  }
+  const onChange = (e: {target: HTMLInputElement}) => setQuery(e.target.value)
 
-  onSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
 
-    this.props.onSubmit(this.state.query)
+    if (query.trim() !== '') {
+      onSubmit(query)
+    }
   }
 
-  render() {
-    const {query} = this.state
-    const {isLoading} = this.props
+  const noSubmit = isLoading || query.trim() === ''
 
-    const noSubmit = isLoading || query === ''
-
-    return (
-      <Collapse
-        trigger={({toggle}) => (
-          <form>
-            <MonoInput
-              value={query}
-              onChange={this.onChange}
-              disabled={isLoading}
-              placeholder="Search for..."
-            />
-            <Button onClick={this.onSubmit} disabled={noSubmit}>
-              Search
-            </Button>
-            <Button onClick={toggle} type="button">
-              Help
-            </Button>
-          </form>
-        )}
-      >
-        <Help />
-      </Collapse>
-    )
-  }
+  return (
+    <Collapse
+      trigger={({toggle}) => (
+        <form>
+          <MonoInput
+            value={query}
+            onChange={onChange}
+            disabled={isLoading}
+            placeholder="Search for..."
+          />
+          <Button onClick={handleSubmit} disabled={noSubmit}>
+            Search
+          </Button>
+          <Button onClick={toggle} type="button">
+            Help
+          </Button>
+        </form>
+      )}
+    >
+      <Help />
+    </Collapse>
+  )
 }
+
+export default Search

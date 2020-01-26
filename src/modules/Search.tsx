@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, {useState, useEffect, FC} from 'react'
 import {RemoteData, is, map} from 'remote-data-ts'
 import * as prettier from 'prettier/standalone'
 import * as tsParser from 'prettier/parser-typescript'
@@ -19,12 +19,9 @@ interface Props {
   onSearch: (q: string) => void
 }
 
-interface State {
-  searchResult: SearchResult
-}
-
 const formatSignature = (code: string, name?: string) =>
   prettier.format(`type ${name || 't'} = ${code}`, {
+    printWidth: 100,
     parser: 'typescript',
     semi: false,
     singleQuote: true,
@@ -45,50 +42,46 @@ const formatRecords = map<
   })),
 )
 
-export default class Search extends React.Component<Props, State> {
-  state: State = {
-    searchResult: RemoteData.notAsked(),
-  }
+const Search: FC<Props> = ({query, onSearch}) => {
+  const [searchResult, setSearchResult] = useState<SearchResult>(
+    RemoteData.notAsked(),
+  )
 
-  componentDidMount() {
-    if (this.props.query) {
-      this.search(this.props.query)
-    }
-  }
-
-  onSubmit = (query: string) => {
-    this.props.onSearch(query)
-    this.search(query)
-  }
-
-  search = (query: string) => {
-    this.setState({searchResult: RemoteData.loading()})
+  const doSearch = (query: string) => {
+    setSearchResult(RemoteData.loading())
 
     search(query)
       .map(formatRecords)
-      .fork(
-        error => {
-          // tslint:disable-next-line no-console
-          console.error(error)
-          // All errors should've been handled by now
-          this.setState({searchResult: RemoteData.failure(unknownError())})
-        },
-        data => {
-          this.setState({searchResult: data})
-        },
-      )
+      .fork(error => {
+        // tslint:disable-next-line no-console
+        console.error(error)
+        // All errors should've been handled by now
+        setSearchResult(RemoteData.failure(unknownError()))
+      }, setSearchResult)
   }
 
-  render() {
-    return (
-      <>
-        <Form
-          initialQuery={this.props.query}
-          isLoading={is.loading(this.state.searchResult)}
-          onSubmit={this.onSubmit}
-        />
-        <ListRecords records={this.state.searchResult} />
-      </>
-    )
+  const onSubmit = (query: string) => {
+    onSearch(query)
+    doSearch(query)
   }
+
+  useEffect(() => {
+    if (query) {
+      doSearch(query)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <>
+      <Form
+        initialQuery={query}
+        isLoading={is.loading(searchResult)}
+        onSubmit={onSubmit}
+      />
+      <h2>Search results</h2>
+      <ListRecords query={query || ''} records={searchResult} />
+    </>
+  )
 }
+
+export default Search

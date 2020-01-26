@@ -14,27 +14,28 @@ interface Props {
 }
 
 const Container = styled.div({
-  marginBottom: 30,
+  marginBottom: 50,
 })
 
 const Location = styled.div({
   fontSize: 16,
-  display: 'flex',
+  verticalAlign: 'center',
 })
 
-const Toggle = styled.div({
+const Toggle = styled.span({
   cursor: 'pointer',
   marginLeft: 20,
 })
 
 const codeStyle = {
   padding: 10,
-  fontSize: 18,
+  fontSize: 16,
 }
 const signatureStyle = {
   ...codeStyle,
-  backgroundColor: '#eee',
+  backgroundColor: 'rgba(0,0,0,.03)',
   marginBottom: 10,
+  marginTop: 10,
 }
 
 const Signature: React.SFC<FormattedFunctionRecord> = props => (
@@ -47,28 +48,51 @@ const Signature: React.SFC<FormattedFunctionRecord> = props => (
   </SyntaxHighlighter>
 )
 
-const DTLink: React.SFC<{module: string}> = ({module}) => (
-  <div>
-    Package:{' '}
+const PackageIcon = styled.div({
+  display: 'inline-flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgb(120, 33, 117)',
+  color: 'white',
+  borderRadius: '100%',
+  fontSize: 14,
+  fontWeight: 'bold',
+  lineHeight: 1,
+  textAlign: 'center',
+  width: 20,
+  height: 20,
+})
+
+const ModuleLink: React.FC<{module: string}> = ({module}) => (
+  <>
+    <PackageIcon>P</PackageIcon>{' '}
     <a
-      href={`https://www.npmjs.com/package/@types/${module}`}
+      href={`https://www.npmjs.com/package/${module}`}
       target="_blank"
       rel="noopener noreferrer"
     >
-      @types/{module}
+      {module}
     </a>
-  </div>
+  </>
 )
+
+const Name = styled.div({
+  fontWeight: 'bold',
+  fontSize: 20,
+})
 
 const SearchResult: React.SFC<Props> = ({result}) => (
   <Container>
+    <Name>{result.name || 'anonymous'}</Name>
     <Signature {...result} />
-    {result.text && (
+    {result.text ? (
       <Collapse
         trigger={({toggle, isOpen}) => (
           <Location>
-            <DTLink module={result.module} />
-            <Toggle onClick={toggle}>{isOpen ? 'Source V' : 'Source >'}</Toggle>
+            <ModuleLink module={result.module} />
+            <Toggle onClick={toggle}>
+              {isOpen ? '\u2b07\ufe0f Hide Source' : '\u27a1\ufe0f Show Source'}
+            </Toggle>
           </Location>
         )}
       >
@@ -76,12 +100,13 @@ const SearchResult: React.SFC<Props> = ({result}) => (
           language="typescript"
           style={gruvboxDark}
           customStyle={codeStyle}
-          showLineNumbers={true}
-          startingLineNumber={result.location.lines.from}
+          showLineNumbers={false}
         >
           {result.text.trim()}
         </SyntaxHighlighter>
       </Collapse>
+    ) : (
+      <ModuleLink module={result.module} />
     )}
   </Container>
 )

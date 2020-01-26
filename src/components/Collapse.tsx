@@ -1,25 +1,20 @@
-import * as React from 'react'
+import React, {FC, useState} from 'react'
 
 interface Props {
   trigger: (p: {toggle: () => void; isOpen: boolean}) => React.ReactNode
 }
 
-interface State {
-  isOpen: boolean
+const Collapse: FC<Props> = ({trigger, children}) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const onToggle = () => setIsOpen(s => !s)
+
+  return (
+    <React.Fragment>
+      {trigger({isOpen, toggle: onToggle})}
+      {isOpen && children}
+    </React.Fragment>
+  )
 }
 
-export default class Collapse extends React.Component<Props, State> {
-  state = {isOpen: false}
-
-  onToggle = () => this.setState(s => ({isOpen: !s.isOpen}))
-
-  render() {
-    const {isOpen} = this.state
-    return (
-      <React.Fragment>
-        {this.props.trigger({isOpen, toggle: this.onToggle})}
-        {isOpen && this.props.children}
-      </React.Fragment>
-    )
-  }
-}
+export default Collapse
