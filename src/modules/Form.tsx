@@ -42,12 +42,13 @@ export default class Search extends React.Component<Props, State> {
 
     return (
       <Collapse
-        trigger={({toggle, isOpen}) => (
+        trigger={({toggle}) => (
           <form>
             <MonoInput
               value={query}
               onChange={this.onChange}
               disabled={isLoading}
+              placeholder="Search for..."
             />
             <Button onClick={this.onSubmit} disabled={noSubmit}>
               Search

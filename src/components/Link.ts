@@ -9,7 +9,6 @@ const none = {
 const Link = styled.a({
   ...none,
   marginBottom: 10,
-  color: '#294E80',
   '&:hover': none,
   '&:link': none,
   '&:active': none,

@@ -1,17 +1,16 @@
 import * as React from 'react'
-import {RouteComponentProps} from 'react-router-dom'
 import styled from 'styled-components'
+import {RouteComponentProps} from 'react-router-dom'
 
-import {Logo, RouterLink} from '../components'
+import {List, Link, RouterLink} from '../components'
 import Form from '../modules/Form'
 
-const Container = styled.div({
-  padding: 10,
-  maxWidth: '100vw',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
+const Queries = styled.div({
+  maxWidth: 400,
+  padding: 20,
+  backgroundColor: 'rgba(0,0,0,.05)',
+  marginTop: 10,
+  marginBottom: 20,
 })
 
 const queries = [
@@ -30,18 +29,20 @@ const qToPath = (q: string) => ({
 })
 
 const Home: React.SFC<RouteComponentProps> = ({history}) => (
-  <Container>
-    <Logo />
+  <>
     <Form
       onSubmit={q => history.push({pathname: '/query', search: `?q=${q}`})}
       isLoading={false}
     />
-    <div>
-      <h4>Search TypeScript functions and method by type signature or name</h4>
-      <p>
-        <b>Example queries</b>
-      </p>
-      <ul>
+    <h3>Welcome to Tsearch</h3>
+    <p>
+      Tsearch is a TypeScript search engine. It allows to search functions from
+      packages by name or aproximate type signature.
+    </p>
+
+    <Queries>
+      <b>Example queries</b>
+      <List>
         {queries.map(q => (
           <li key={q}>
             <code>
@@ -49,9 +50,28 @@ const Home: React.SFC<RouteComponentProps> = ({history}) => (
             </code>
           </li>
         ))}
-      </ul>
-    </div>
-  </Container>
+      </List>
+    </Queries>
+
+    <p>
+      <b>Tsearch is under development</b>. It is only a proof of concept at the
+      moment.
+    </p>
+    <p>
+      Keep and eye on the{' '}
+      <Link
+        href="https://dev.to/gillchristian/a-crazy-idea-and-a-proof-of-concept-2oj7"
+        target="_blank"
+      >
+        blog
+      </Link>{' '}
+      and the{' '}
+      <Link href="https://github.com/gillchristian/ts-earch" target="_blank">
+        repo
+      </Link>{' '}
+      for updates.
+    </p>
+  </>
 )
 
 export default Home

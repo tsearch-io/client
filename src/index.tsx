@@ -6,6 +6,7 @@ import {createGlobalStyle} from 'styled-components'
 
 import Home from './pages/Home'
 import Search from './pages/Search'
+import {Layout} from './components'
 
 const history = createHistory({
   basename: process.env.REACT_APP_BASENAME || '',
@@ -23,12 +24,14 @@ const GlobalStyles = createGlobalStyle({
 const Root: React.SFC = () => (
   <>
     <Router history={history}>
-      <Switch>
-        <Route path="/" exact={true} component={Home} />
-        <Route path="/query" component={Search} />
-      </Switch>
+      <Layout>
+        <Switch>
+          <Route path="/" exact={true} component={Home} />
+          <Route path="/query" component={Search} />
+        </Switch>
+      </Layout>
+      <GlobalStyles />
     </Router>
-    <GlobalStyles />
   </>
 )
 
