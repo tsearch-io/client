@@ -8,3 +8,8 @@ Client app for [tsearch.io](https://tsearch.io).
 
 [tsearch.io](https://tsearch.io) client is built with
 [Create React App](https://create-react-app.dev/).
+
+## LICENSE
+
+[MIT License](https://github.com/tsearch-io/client/blob/master/LICENSE) ©
+[Christian Gill](https://gillchristian.xyz)
