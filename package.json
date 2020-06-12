@@ -1,7 +1,6 @@
 {
-  "name": "client-2",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@tsearch/client",
+  "version": "0.0.1",
   "dependencies": {
     "@ts-task/fetch": "^1.0.6",
     "@ts-task/task": "^1.0.2",

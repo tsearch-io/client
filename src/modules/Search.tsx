@@ -38,7 +38,10 @@ const formatRecords = map<
 >(rs =>
   rs.map(r => ({
     ...r,
-    formattedSignature: formatSignature(stringifySignature(r), r.name),
+    formattedSignature: formatSignature(
+      stringifySignature(r.signature),
+      r.name,
+    ),
   })),
 )
 
